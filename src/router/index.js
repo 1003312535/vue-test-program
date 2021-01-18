@@ -12,10 +12,15 @@ const System = () => { return import ('@/views/System/System') }
 const Menu = () => { return import ('@/views/System/Menu') }
 
 
-const Tree = () => { return import ('@/views/tree/tree.vue') }
+const Tree = () => { return import ('@/views/tree/tree') }
 const successTree = () => { return import ('@/views/tree/children/successTree') }
 
 const TreeSelect = () => { return import ('@/views/treeSelect') }
+
+
+const Upload = () => { return import ('@/views/upload/upload') }
+const importTable = () => { return import ('@/views/upload/children/importTable') }
+
 
 
 const Throttle = () => { return import ('@/views/throttleAnddebounce') }
@@ -34,6 +39,7 @@ const routes = [
         children: [{ path: 'successTree', name: '某级别复选框显隐', component: successTree }]
     },
     { path: '/System', name: '系统管理', component: System, children: [{ path: 'Menu', name: '菜单管理', component: Menu }] },
+    { path: '/Upload', name: '上传管理', component: Upload, children: [{ path: 'importTable', name: '导入导出表', component: importTable }] },
     { path: '/TreeSelect', name: 'vue-treeSelect校验和高度设置', component: TreeSelect },
     { path: '/Throttle', name: '指令防抖节流', component: Throttle },
 

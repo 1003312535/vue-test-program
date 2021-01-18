@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import MySelect from "@/views/select/my-select.vue";
+import MySelect from "@/components/select/my-select.vue";
 export default {
   components: {
     MySelect,

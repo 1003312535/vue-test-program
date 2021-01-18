@@ -31,6 +31,7 @@
                 </template>
               </el-menu-item>
             </el-submenu>
+            <!-- 树结构 -->
             <el-submenu index="/tree">
               <template slot="title">
                 <i class="el-icon-location"></i>
@@ -38,6 +39,16 @@
               </template>
               <el-menu-item index="/tree/successTree">
               <span slot="title">successTree树结构测试</span>
+            </el-menu-item>
+            </el-submenu>
+            <!-- 上传文件管理 -->
+            <el-submenu index="/upload">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>上传文件管理</span>
+              </template>
+              <el-menu-item index="/upload/importTable">
+              <span slot="title">表格导入导出</span>
             </el-menu-item>
             </el-submenu>
             <el-menu-item index="/TreeSelect">
@@ -95,15 +106,16 @@
 export default {
   name: "App",
   methods: {
-    handleOpen(key, keyPath) {
+    handleOpen(key, keyPath) {//手动展开导航时触发
       console.log(key, keyPath);
     },
-    handleClose(key, keyPath) {
+    handleClose(key, keyPath) { //手动关闭导航时触发
       console.log(key, keyPath);
     },
-    selectEvent(index, indexPath) {
+    selectEvent(index, indexPath) {//选中 导航时触发
       console.log(index, indexPath, "选择的下标和下标路径");
-      console.log(this.$route);
+      console.log(this.$route,'this.$route-----');
+      console.log(this.$router,'this.$router------');
     },
   },
   data() {
@@ -114,6 +126,10 @@ export default {
       let routeList = this.$route.matched || []; //判断是否 存在路由匹配列表
       return routeList;
     },
+    menuList() {
+      let arr = this.$router.options
+      return arr
+    }
   },
 };
 </script>
