@@ -1,129 +1,107 @@
 <template>
-  <div class="importTable">
-    <!-- <el-upload
-      class="upload-demo"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :before-remove="beforeRemove"
-      :before-upload="beforeAvatarUpload"
+  <div class="exportTable">
+    <el-upload
+      action
+      :before-upload="beforeUpload"
+      :on-success="uploadSuccess"
+      :http-request="requestActive"
+      :disabled="uploadStatus"
     >
-      <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">
-        只能上传jpg/png文件，且不超过500kb
-      </div>
-    </el-upload> -->
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180"> </el-table-column>
+      <el-button size="small" type="success" :disabled="uploadStatus"
+        >点击上传</el-button
+      >
+    </el-upload>
+    <el-table :data="listTable" style="width: 100%">
       <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+      <el-table-column prop="date" label="日期" width="180"> </el-table-column>
       <el-table-column prop="address" label="地址"> </el-table-column>
     </el-table>
-    <el-button type="primary" style="margin-top: 20px" @click="handleDownload"
-      >导出</el-button
-    >
   </div>
 </template>
 
 <script>
+import xlsx from "xlsx"; //引入xlsx
+import { Loading } from 'element-ui';
+import { delay } from '@/utils/util.js'
 export default {
-  name: "importTable",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
-        },
-      ],
+      uploadStatus: false,
+      listTable: [],
     };
   },
   methods: {
-    //导出表格
-    handleDownload() {
-      require.ensure([], () => {
-        const { export_json_to_excel } = require("@/vendor/Export2Excel");
-        const tHeader = ["日期", "姓名", "地址"]; //表头
-        const filterVal = ["date", "name", "address"]; //表体数据
-        const list = this.tableData;
-        const data = this.formatJson(filterVal, list);
-        console.log(data,' data------')
-        export_json_to_excel(tHeader, data, "列表excel");
-      });
-    },
+    //上传前校验
+    beforeUpload(file) {
+      console.log(file, "上传的文件------");
+      //判断文件类型
+      const extName = file.name.replace(/.*\./gi, "");
+      const xlsList = ["xlsx", "xls"];
+      const isxls = xlsList.includes(extName);
 
-    formatJson(filterVal, jsonData) {
-      return jsonData.map((v) => filterVal.map((j) => v[j]));
-    },
-    //文件上传前校验
-    beforeAvatarUpload(file) {
-      console.log(file, "file----文件上传前校验");
+      //判断文件大小
+      const isLt2M = file.size / 1024 / 1024 < 2;
 
-      // 校验文件后缀名
-      let fileTypes = ["xlsx", "xls"];
-      let aa = file.name.replace(/.+\./gi, ""); //文件后缀名
-      if (!fileTypes.includes(aa)) {
-        //文件类型不正确
-        this.$message({
-          message: "上传文件类型不正确，请选择xlsx/xls格式文件",
-          type: "warning",
-        });
-        return;
+      if (!isxls) {
+        this.$message.error("上传xlsx/xls格式!");
       }
-
-      //校验文件大小
-      const isLt2M = file.size / 1024 / 1024 < 2; //文件是否小于2m
       if (!isLt2M) {
-        this.$message({
-          message: "上传头像图片大小不能超过 2MB!",
-          type: "warning",
-        });
-        return;
+        this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      console.log();
+      return isxls && isLt2M;
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-      console.log(this.fileList, "data 中的数据----");
+    uploadSuccess(uploadFile) {
+      //上传成功
     },
-    handlePreview(file) {
-      console.log(file);
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
-          files.length + fileList.length
-        } 个文件`
-      );
-    },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`);
+    //发送请求数据处理
+    async requestActive(params) {
+      console.log(params, "要处理的数据-----");
+      const file = params.file; //获取上传的文件
+      let loadingInstance1 = Loading.service({ fullscreen: true }); //element ui 中的函数式组件
+      await delay(1000)
+      //读取文件 转换成二进制数据
+      const fileReader = new FileReader();
+      fileReader.readAsBinaryString(file);
+      console.log(111)
+      //文件转换完成后执行
+      fileReader.onload = (ev) => {
+        console.log(ev, "事件对象");
+        const data = ev.target.result;//转换后的结果
+
+        //转换成工作表
+        const workbook = xlsx.read(data, {
+          type: "binary",
+        });
+        console.log(workbook, "workBook将二进制数据转换成工作表-----");
+
+        //循环读取每个页卡
+        for (let sheet in workbook.Sheets) {
+
+          //格式化处理每个也卡中的数据
+          const sheetArray = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
+          console.log(sheetArray, "格式化处理每个也卡中的数据-------");
+          //若当前sheet没有数据，则continue
+          if (sheetArray.length == 0) {
+            continue;
+          }
+          console.log(sheetArray);
+
+          for (let item in sheetArray) {
+            let rowTable = {};
+            //这里的rowTable的属性名注意要与上面表格的prop一致
+            //sheetArray的属性名与上传的表格的列名一致
+            rowTable.name = sheetArray[item].姓名;
+            rowTable.date = sheetArray[item].日期;
+            rowTable.address = sheetArray[item].地址;
+            this.listTable.push(rowTable); //退送到list 中
+          }
+        }
+      };
+      loadingInstance1.close() //关闭函数式组件
+      this.$message({
+        message: '上传成功！',
+        type: 'success'
+      })
     },
   },
 };

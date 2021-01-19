@@ -16,7 +16,12 @@ Vue.use(message2)
 import dialog from './components/dialogComponent/index'
 Vue.use(dialog)
 import router from './router/index'
-//防抖指令期待参数为 [fn, event, time]
+
+
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.css'
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */ )
+    //防抖指令期待参数为 [fn, event, time]
 Vue.directive('debounce', {
         inserted: function(el, binding) {
             let [fn, event = "click", time = 300] = binding.value

@@ -1,29 +1,76 @@
 <template>
   <div class="index">
-    <h1>我是首页</h1>
-    <el-card shadow="hover">
-      <div slot="header" class="clearfix">
-        <span>卡片名称</span>
-        <el-button style="float: right; padding: 3px 0" type="text"
-          >操作按钮</el-button
-        >
-      </div>
       <div class="body">
-        router路由重复点击问题:<br />
         <el-row>
           <el-col :span="6">
             <el-card>
               <div slot="header">隐藏滚动条</div>
               <div>
-            #asideNav .el-menu::-webkit-scrollbar {
-                display: none;
-            }
-          </div>
+                #asideNav .el-menu::-webkit-scrollbar { display: none; }
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">router路由重复点击问题:</div>
+              <div>
+                const originalPush = VueRouter.prototype.push
+                VueRouter.prototype.push = function push(location) { return
+                originalPush.call(this, location).catch(err => err) } }
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">ocr识别身份证</div>
+              <div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">获取到文件展示图片</div>
+              <div>
+                this.imageUrl = URL.createObjectURL(file.raw);
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">隐藏滚动条</div>
+              <div>
+                #asideNav .el-menu::-webkit-scrollbar { display: none; }
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">router路由重复点击问题:</div>
+              <div>
+                const originalPush = VueRouter.prototype.push
+                VueRouter.prototype.push = function push(location) { return
+                originalPush.call(this, location).catch(err => err) } }
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">ocr识别身份证</div>
+              <div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card>
+              <div slot="header">table表格导入导出</div>
+              <div>
+              </div>
             </el-card>
           </el-col>
         </el-row>
       </div>
-    </el-card>
   </div>
 </template>
 <script>

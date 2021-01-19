@@ -18,6 +18,8 @@
 //             fn.apply(th, args)
 //         }
 //     }
+
+
 // }
 export function _throttle(method, delay, duration) {
     var that = this;
@@ -35,4 +37,14 @@ export function _throttle(method, delay, duration) {
             }, delay);
         }
     };
+}
+
+// 设置延时函数
+export function delay(duration = 300) {
+    return new Promise((resolve, reject) => {
+        let timer = setTimeout(() => {
+            resolve()
+            clearTimeout(timer)
+        }, duration)
+    })
 }
