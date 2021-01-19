@@ -17,11 +17,20 @@ import dialog from './components/dialogComponent/index'
 Vue.use(dialog)
 import router from './router/index'
 
+//swiper 插件的引入
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/swiper-bundle.css'
+// Vue.use(VueAwesomeSwiper, /* { default options with global component } */ )
 
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.css'
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */ )
-    //防抖指令期待参数为 [fn, event, time]
+//mavon-editor 插件的引入
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
+
+
+
+//防抖指令期待参数为 [fn, event, time]
 Vue.directive('debounce', {
         inserted: function(el, binding) {
             let [fn, event = "click", time = 300] = binding.value

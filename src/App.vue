@@ -75,7 +75,16 @@
                 <span slot="title">表格导出</span>
               </el-menu-item>
             </el-submenu>
-
+            <!-- 函数式插件 -->
+            <el-submenu index="/FunComponent">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>函数式插件</span>
+              </template>
+              <el-menu-item index="/FunComponent/allFun">
+                <span slot="title">按钮调用组件</span>
+              </el-menu-item>
+            </el-submenu>
             <el-menu-item index="/Throttle">
               <span slot="title">指令：防抖(debounce)和节流(throttle)测试</span>
             </el-menu-item>
@@ -92,7 +101,7 @@
               <span slot="title">messagebox 测试</span>
             </el-menu-item>
             <el-menu-item index="/FunComponent">
-              <span slot="title">FunComponent函数式组件 测试</span>
+              <span slot="title">FunComponent函数式组件</span>
             </el-menu-item>
             <el-menu-item index="/loadownTable">
               <span slot="title">input loadown-table测试</span>
@@ -163,8 +172,9 @@ export default {
     routeList() {
       let routeList = this.$route.matched || []; //判断是否 存在路由匹配列表
       return routeList;
+      console.log(this.$router,'$router-------')
     },
-    menuList() {
+    menuList() {//渲染左边到含量需要
       let arr = this.$router.options;
       return arr;
     },
@@ -233,7 +243,7 @@ body,
 .el-submenu__icon-arrow {
   display: none;
 }
-.el-tooltip{
+.el-tooltip {
   padding: 0 8px !important;
 }
 /* 导航栏折叠起来子项的样式 */

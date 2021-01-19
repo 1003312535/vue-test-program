@@ -1,26 +1,3 @@
-// export function _throttle(fn, interval) {
-//     console.log('_throttle')
-//     let last = 0
-//     let timer
-//     const interVal = interval || 200
-//     return function() {
-//         const th = this
-//         const args = arguments
-//         const now = new Date().getTime()
-//         if (last && now - last < interVal) {
-//             clearTimeout(timer)
-//             timer = setTimeout(function() {
-//                 last = new Date().getTime()
-//                     // fn.apply(th, args)
-//             }, interVal)
-//         } else {
-//             last = new Date().getTime()
-//             fn.apply(th, args)
-//         }
-//     }
-
-
-// }
 export function _throttle(method, delay, duration) {
     var that = this;
     var timer = null;
@@ -38,7 +15,21 @@ export function _throttle(method, delay, duration) {
         }
     };
 }
-
+//防抖
+export const Debounce = (fn, t) => {
+    let delay = t || 2000;
+    let timer;
+    return function() {
+        let args = arguments;
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            timer = null;
+            fn.apply(this, args);
+        }, delay);
+    }
+};
 // 设置延时函数
 export function delay(duration = 300) {
     return new Promise((resolve, reject) => {
