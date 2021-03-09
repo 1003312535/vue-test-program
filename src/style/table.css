@@ -1,0 +1,84 @@
+/* 表格样式 */
+
+
+/* 把校验表单的外下边距暂未取消 */
+
+.othee {
+    font-size: 20px;
+}
+
+.othee .el-form-item {
+    margin: 0 !important;
+}
+
+
+/* 提示校验消息设置 ----右半部分显示*/
+
+.othee .el-form-item .el-form-item__error {
+    top: 50%;
+    width: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    left: unset;
+    padding: 0;
+}
+
+
+/* 整体input 和 图标 行高设置 */
+
+.othee .el-form-item__content>.el-input input,
+.othee .el-input__icon {
+    border-radius: unset;
+    border: unset;
+    line-height: 50px;
+}
+
+
+/* 单独设置图标为el-icon-date 的 大小和宽度 */
+
+.othee .el-input__suffix .el-input__icon.el-icon-date {
+    width: 50px;
+    font-size: 40px;
+}
+
+
+/* 设置表单的 行高 和高度 */
+
+.othee input {
+    border-radius: unset;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+
+/* 单独设置 el-input表单的样式 */
+
+.othee .el-form-item__content>.el-input {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+
+/* select宽度设置 */
+
+.myother .el-select {
+    width: 100%
+}
+
+
+/* 设置 日期组件上 挂有 .notop 的 前缀图标的样式 */
+
+.notop .el-input__prefix {
+    display: none !important;
+}
+
+.notop.el-input--prefix .el-input__inner {
+    padding-left: 10px;
+}
+
+
+/* .设置行高 */
+
+.lineHeight {
+    line-height: 50px
+}

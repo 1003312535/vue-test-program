@@ -54,9 +54,9 @@ export default {
       //上传成功
     },
     //发送请求数据处理
-    async requestActive(params) {
-      console.log(params, "要处理的数据-----");
-      const file = params.file; //获取上传的文件
+    async requestActive(e) {
+      console.log(e, "要处理的数据-----");
+      const file = e.file; //获取上传的文件
       let loadingInstance1 = Loading.service({ fullscreen: true }); //element ui 中的函数式组件
       await delay(1000)
       //读取文件 转换成二进制数据
@@ -69,23 +69,24 @@ export default {
         const data = ev.target.result;//转换后的结果
 
         //转换成工作表
+        
         const workbook = xlsx.read(data, {
           type: "binary",
         });
         console.log(workbook, "workBook将二进制数据转换成工作表-----");
-
+        //SheetNames 对应的页卡名 （Array）
+        //Sheets 对象 ---->属性名为也卡名，属性值（对象）---->属性【!ref】表示这个表格起始到结束下标
         //循环读取每个页卡
         for (let sheet in workbook.Sheets) {
 
           //格式化处理每个也卡中的数据
           const sheetArray = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
-          console.log(sheetArray, "格式化处理每个也卡中的数据-------");
+          console.log(sheetArray, "格式化处理每个页卡中的数据 数组对象的形式-------");
           //若当前sheet没有数据，则continue
           if (sheetArray.length == 0) {
             continue;
           }
           console.log(sheetArray);
-
           for (let item in sheetArray) {
             let rowTable = {};
             //这里的rowTable的属性名注意要与上面表格的prop一致

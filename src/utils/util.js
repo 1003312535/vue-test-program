@@ -39,3 +39,33 @@ export function delay(duration = 300) {
         }, duration)
     })
 }
+
+//手写promise
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled'
+const REJECTED = 'rejected'
+export class newPromise {
+    constructor(executor) {
+        executor(this.resolve, this.reject)
+    }
+    status = PENDING
+    res = undefined
+    result = undefined
+    resolve = (value) => {
+        if (this.status !== PENDING) return
+        this.status = FULFILLED
+        this.res = value
+    }
+    reject = result => {
+        if (this.status !== PENDING) return
+        this.status = REJECTED
+        this.result = result
+    }
+    then = (successCallback, failCallBack) => {
+        if (this.status === FULFILLED) {
+            successCallback(this.value)
+        } else if (this.status == REJECTED) {
+            failCallBack(this.result)
+        }
+    }
+}

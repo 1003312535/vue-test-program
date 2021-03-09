@@ -1,111 +1,55 @@
 <template>
-  <div class="swiper">
+  <div class="swiper1">
     <el-row>
-      <el-col :span="12">
-        <swiper ref="mySwiper" :options="swiperOptions" v-if="true">
-          <swiper-slide>Slide 1</swiper-slide>
-          <swiper-slide>Slide 2</swiper-slide>
-          <swiper-slide>Slide 3</swiper-slide>
-          <swiper-slide>Slide 4</swiper-slide>
-          <swiper-slide>Slide 5</swiper-slide>
-          <div class="swiper-pagination" slot="pagination" v-if="true"></div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
-          <div class="swiper-scrollbar" slot="scrollbar" v-if="true"></div>
-        </swiper>
+      <el-col :span="14">
+        <div class="swiper-container">
+          <div style="background-image:url('https://profile.csdnimg.cn/C/8/F/2_weixin_46211267');height: 100%" data-swiper-parallax="-3%" data-swiper-parallax-duration="3000"></div>
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+          </div>
+          <!-- 如果需要分页器 -->
+          <div class="swiper-pagination"></div>
+
+          <!-- 如果需要导航按钮 -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+          <!-- 如果需要滚动条 -->
+          <div class="swiper-scrollbar"></div>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
-import "swiper/swiper-bundle.css";
-import Swiper2, { Navigation, Pagination, Autoplay } from "swiper";
-Swiper2.use([Navigation, Pagination, Autoplay]);
-
 export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  data() {
-    return {
-      swiperOptions: {
-        // autoplay: true, ///////////////////////////////////////   把这里的3000改为true就可以了、
-        // grabCursor: true,
-        // setWrapperSize: true,
-        // autoHeight: true,
-        // pagination: ".swiper-pagination",
-        // paginationClickable: true,
-        // mousewheelControl: true,
-        // autoplayDisableOnInteraction: false,
-        // observeParents: true,
-        // loop: true,
-        // observer: true,
-
-        slidesPerView: 1, // wrapper中显示的图片数量
-        // speed: 1000, // 图片切换速度
-        loop: true, // 循环轮播
-        // notNextTick: true,
-        preloadImages: false,
-        autoplay: {
-          // 自动轮播
-          delay: 3000,
-          stopOnLastSlide: false,
-          disableOnInteraction: false, //用户操作swiper之后自动切换不会停止
-        },
-        // 显示分页
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true, //允许分页点击跳转
-        },
-        // 设置点击箭头
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        //滚动条配置
-        scrollbar: {
-          el: ".swiper-scrollbar",
-          // hide: true,
-          draggable: true,
-          // dragSize: 130,
-        },
-      },
-    };
-  },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.$swiper;
-    },
-  },
   mounted() {
-    console.log("Current Swiper instance object", this.swiper);
-    // this.swiper.slideTo(3, 1000, false);
-    // this.swiperOption.autoplay =
-    //   this.homeSwiper.length != 1
-    //     ? {
-    //         delay: 4000,
-    //         stopOnLastSlide: false,
-    //         disableOnInteraction: false,
-    //       }
-    //     : false;
-  },
+    var mySwiper = new Swiper ('.swiper-container', {
+    loop: true,
+    autoplay:2000,
+    pagination: '.swiper-pagination', // 如果需要分页器
+    autoplayDisableOnInteraction: false,
+    nextButton: '.swiper-button-next',// 如果需要前进后退按钮
+    prevButton: '.swiper-button-prev',
+    parallax : true,
+    scrollbar: '.swiper-scrollbar',// 如果需要滚动条
+  })        
+  }
 };
 </script>
 
 <style scoped>
-.swiper .swiper-container {
+.swiper-container {
   position: relative;
   width: 100%;
   height: 200px;
-  background: pink;
-}
-.swiper .swiper-container .swiper-slide {
+} 
+.swiper-container .swiper-slide {
   width: 100%;
   line-height: 200px;
-  background: yellowgreen;
   color: #000;
   font-size: 16px;
   text-align: center;
