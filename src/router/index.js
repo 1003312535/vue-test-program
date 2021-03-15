@@ -72,7 +72,8 @@ const routes = [
                 component: Menu,
                 children: [
                     { path: '', component: listMenu },
-                    { path: 'addMenu', name: '新增菜单', component: addMenu }
+                    { path: 'addMenu', name: '新增菜单', component: addMenu },
+                    { path: 'editMenu/:id', name: '编辑菜单', component: addMenu }
                 ]
             },
 

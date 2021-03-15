@@ -136,23 +136,23 @@ export default {
 </script>
 
 <style scoped>
-.el-form-item {
+/* .el-form-item {
   margin-bottom: 20px;
-}
+} */
 /* 设置最外边的高度 */
-.vue-treeselect {
+/* .vue-treeselect {
   height: 28px;
-}
+} */
 /* 设置输入框的高度 */
-/deep/ .vue-treeselect__control {
+/* /deep/ .vue-treeselect__control {
   height: 28px !important;
-}
+} */
 /* 设置placeholder 占位符的行高 和字体大小 */
-/deep/ .vue-treeselect__placeholder,
+/* /deep/ .vue-treeselect__placeholder,
 .vue-treeselect__single-value {
   line-height: unset;
   font-size: 13px;
-}
+} */
 /* .vue-treeselect__placeholder {
   line-height: 28px;
   font-size: 14px;

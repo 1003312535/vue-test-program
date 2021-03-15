@@ -6,8 +6,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/style/mixin.css'
 import '@/style/table.css'
-Vue.use(ElementUI);
-
+Vue.use(ElementUI, { size: 'small' });
 import router from './router'
 import store from '@/store'
 import install from 'utils/install' //要往Vue上挂在的东西

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Message } from 'element-ui'
 
 const http = axios.create({
     baseURL: process.env.HOST_API,
@@ -28,14 +29,16 @@ http.interceptors.request.use(config => {
 
 http.interceptors.response.use(response => {
         const data = response;
-        return data;
+        console.log(response, 'response----')
+        return data.data;
     },
     error => {
+        console.log(error.response, 'aaaaaaaaaaaaaaaaaa')
         const response = error.response;
         let errorText = "网络错误";
         if (response) {
-            if (response.data.Message) {
-                errorText = response.data.Message
+            if (response.data.message) {
+                errorText = response.data.message
             } else {
                 errorText = codeMessage[response.status] || response.statusText;
             }
@@ -54,13 +57,13 @@ http.interceptors.response.use(response => {
             //     type: 'error',
             //     duration: 5 * 1000
             // })
-            message.error({
+            Message.error({
                 message: errorText,
                 // type: 'error',
                 // duration: 5 * 1000
             })
         } else {
-            message.error({
+            Message.error({
                 message: errorText,
                 // type: 'error',
                 // duration: 5 * 1000

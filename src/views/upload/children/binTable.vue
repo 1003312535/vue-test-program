@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bbb .cell {
   padding: 0 !important;
 }

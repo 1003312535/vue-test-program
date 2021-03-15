@@ -1,18 +1,33 @@
 <template>
   <div>
     <el-button type="success" @click="addMenu">添加菜单</el-button>
-    <el-table
-      :data="tableData"
-      style="width: 100%; margin-bottom: 20px"
-      row-key="id"
-      :indent="20"
-      :tree-props="{ children: 'children'}"
-    >
-      <el-table-column prop="date" label="日期" sortable width="180">
+    <el-table :data="tableData" row-key="id" :indent="20" :tree-props="{ children: 'children'}">
+      <el-table-column prop="menuName" label="菜单名称"></el-table-column>
+      <el-table-column prop="menuURL" label="菜单地址"></el-table-column>
+      <el-table-column prop="iconType" label="icon图标">
+        <template slot-scope="scope">
+          <el-tag>
+            <i :class="scope.row.iconURL"></i>
+          </el-tag>
+        </template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" sortable width="180">
+      <el-table-column prop="iconType" label="icon图标">
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.menuStatus"
+            :active-value="1"
+            :inactive-value="0"
+            :disabled="true"
+          ></el-switch>
+          {{scope.row.menuStatus == 1? '启用':'未启用'}}
+        </template>
       </el-table-column>
-      <el-table-column prop="address" label="地址"> </el-table-column>
+      <el-table-column fixed="right" align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleShowItem(scope.row,scope.$index)">查看</el-button>
+          <el-button type="text" @click="handleEidtItem(scope.row,scope.$index)">编辑</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -20,51 +35,38 @@
 <script>
 export default {
   methods: {
+    //handleShowItem()
+    handleShowItem(row, index) {
+      console.log(row, index)
+    },
+    //handleEidtItem
+    handleEidtItem(row, index) {
+      this.$router.push(`/System/Menu/editMenu/${row.id}`)
+    },
     //添加菜单
     addMenu() {
-      this.$router.push("/System/Menu/addMenu");
+      this.$router.push('/System/Menu/addMenu')
     },
+    //获取导航Tree列表
+    getMenuTreeList() {
+      return this.$api.getMenuTreeList()
+    },
+  },
+  async mounted() {
+    try {
+      let { result } = await this.getMenuTreeList()
+      this.tableData = result
+    } catch (err) {
+      throw err
+    }
   },
   data() {
     return {
-      tableData: [
-        {
-          id: 1,
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          id: 2,
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          id: 3,
-          date: "2016-05-01",
-          name: "王小",
-          address: "上海市普陀区金沙江路 1519 弄",
-          children: [
-            {
-              id: 31,
-              date: "2016-05-01",
-              name: "王小虎",
-              address: "上海市普陀区金沙江路 1519 弄",
-            },
-            {
-              id: 32,
-              date: "2016-05-01",
-              name: "王小虎",
-              address: "上海市普陀区金沙江路 1519 弄",
-            },
-          ],
-        },
-      ],
-    };
+      tableData: [],
+    }
   },
-};
+}
 </script>
 
-<style>
+<style scoped>
 </style>
