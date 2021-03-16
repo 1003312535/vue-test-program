@@ -10,26 +10,25 @@
 import message1 from '@/components/messageFunction/message'
 export default {
   components: {
-    message1
+    message1,
   },
   methods: {
     toastClick() {
-      this.$toast.show("我是提示信息2秒后消失", 2000);
+      this.$toast.show('我是提示信息2秒后消失', 2000)
     },
     dialogClick() {
-      this.$dialog.show();
+      this.$dialog.show()
     },
     messageClick() {
-      this.$myConfirm.myConfirm("我是message消息", '我是标题',{
+      this.$myConfirm.myConfirm('我是message消息', '我是标题', {
         callback() {
           console.log('点击确认消息按钮')
         },
-        confirmBtn: '我是确认按钮'
-      });
+        confirmBtn: '我是确认按钮',
+      })
     },
   },
-};
+}
 </script>
 
-<style scoped>
 </style>

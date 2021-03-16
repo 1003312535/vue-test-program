@@ -1,5 +1,5 @@
 <template>
-  <el-aside>
+  <el-aside class="Menu">
     <el-menu
       class="el-menu-vertical-demo"
       active-text-color="red"
@@ -35,6 +35,9 @@
             <span>ImageCompression</span>
           </template>
         </el-menu-item>
+        <el-menu-item index="/tool/Throttle">
+          <span slot="title">指令：防抖(debounce)和节流(throttle)测试</span>
+        </el-menu-item>
       </el-submenu>
       <!-- 系统管理 -->
       <el-submenu index="/System">
@@ -52,16 +55,16 @@
       <el-submenu index="/tree">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>el-tree组件测试</span>
+          <span>el-tree界面</span>
         </template>
         <el-menu-item index="/tree/successTree">
-          <span slot="title">successTree树结构测试</span>
+          <span slot="title">某级别复选框显隐</span>
         </el-menu-item>
         <el-menu-item index="/tree/lineTree">
           <span slot="title">lineTree</span>
         </el-menu-item>
         <el-menu-item index="/tree/TreeSelect">
-          <span slot="title">treeSelect树结构测试</span>
+          <span slot="title">vue-treeSelect校验和高度设置</span>
         </el-menu-item>
       </el-submenu>
       <!-- 上传文件管理 -->
@@ -74,7 +77,7 @@
           <span slot="title">合并的表格</span>
         </el-menu-item>
         <el-menu-item index="/upload/importTable">
-          <span slot="title">表格导入</span> 
+          <span slot="title">表格导入</span>
         </el-menu-item>
         <el-menu-item index="/upload/exportTable">
           <span slot="title">表格导出</span>
@@ -96,60 +99,54 @@
           <span slot="title">按钮调用组件</span>
         </el-menu-item>
       </el-submenu>
-      <el-menu-item index="/Throttle">
-        <span slot="title">指令：防抖(debounce)和节流(throttle)测试</span>
-      </el-menu-item>
-      <el-menu-item index="/input">
-        <span slot="title">保留整数和小数点后几位</span>
-      </el-menu-item>
-      <el-menu-item index="/Form">
+
+      <el-submenu index="/packageComponent">
         <template slot="title">
-          <span>form树结构测试</span>
+          <i class="el-icon-location"></i>
+          <span>自己封装的组件</span>
         </template>
-      </el-menu-item>
-      <el-menu-item index="/AutoPlaceholder">
-        <span slot="title">autoplaceholder树结构测试</span>
-      </el-menu-item>
-      <el-menu-item index="/MessageBox">
-        <span slot="title">messagebox 测试</span>
-      </el-menu-item>
-      <el-menu-item index="/FunComponent">
-        <span slot="title">FunComponent函数式组件</span>
-      </el-menu-item>
+        <el-menu-item index="/packageComponent/AutoPlaceholder">
+          <span slot="title">autoplaceholder下拉框表格</span>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="/formIssue">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span>Form表单问题</span>
+        </template>
+        <el-menu-item index="/formIssue/Form">
+          <span slot="title">form表单嵌套校验</span>
+        </el-menu-item>
+        <el-menu-item index="/formIssue/inputValidation">
+          <span slot="title">input输入校验</span>
+        </el-menu-item>
+      </el-submenu>
     </el-menu>
-    <div
-      class="Collapse"
-      @click="changeState"
-      :style="{ width: isCollapse ? '64px' : '200px' }"
-    >
-      |||
-    </div>
+    <div class="Collapse" @click="changeState" :style="{ width: isCollapse ? '64px' : '200px' }">|||</div>
   </el-aside>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
-import {CHANGINDEXPATH,CHANGASIDENAVCOLLAPSESTATUS} from '@/store/constant'
+import { mapState, mapMutations } from 'vuex'
+import { CHANGINDEXPATH, CHANGASIDENAVCOLLAPSESTATUS } from '@/store/constant'
 export default {
   computed: {
-    ...mapState([
-      'currentIndexPath',
-      'isCollapse'
-    ]),
+    ...mapState(['currentIndexPath', 'isCollapse']),
   },
   methods: {
-    ...mapMutations([CHANGINDEXPATH,CHANGASIDENAVCOLLAPSESTATUS]),
-    changeState() {//导航栏的折叠和收缩
+    ...mapMutations([CHANGINDEXPATH, CHANGASIDENAVCOLLAPSESTATUS]),
+    changeState() {
+      //导航栏的折叠和收缩
       this[CHANGASIDENAVCOLLAPSESTATUS](!this.isCollapse)
     },
-    selectEvent(index, indexPath) {//选中 导航时触发
+    selectEvent(index, indexPath) {
+      //选中 导航时触发
       // console.log(index, indexPath, "选择的下标和下标路径");
       this[CHANGINDEXPATH](indexPath.pop())
     },
   },
-};
+}
 </script>
 
 <style scoped>
-
 </style>

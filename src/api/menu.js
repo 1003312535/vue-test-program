@@ -4,6 +4,10 @@ import http from '@/axios/axios'
 export function saveMenu(data) {
     return http({ url: '/menu/saveMenu', data, method: 'POST' })
 }
+//修改菜单
+export function updateMenu(data) {
+    return http({ url: '/menu/updateMenu', data, method: 'POST' })
+}
 //// 获取某个菜单详情
 export function getMenuDetail(params) {
     return http({ url: '/menu/getMenuDetail', params })

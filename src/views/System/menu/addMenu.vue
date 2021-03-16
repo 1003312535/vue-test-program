@@ -10,6 +10,7 @@
         >
           <el-form-item label="上级菜单" prop="pId">
             <treeselect
+              :searchable="false"
               v-model="menuOptions.form.pId"
               :options="menuDropDownList"
               :normalizer="customKeyName"
@@ -39,20 +40,24 @@
             ></el-switch>
           </el-form-item>
           <template v-if="menuOptions.form.iconType == 1">
-            <el-form-item label="icon图标">
+            <el-form-item label="icon图标" prop="iconURL">
               <el-input placeholder="格式：iconshouye" v-model="menuOptions.form.iconURL" clearable></el-input>
             </el-form-item>
           </template>
           <template v-else>
             <el-form-item label="unicode图标">
-              <el-input placeholder="格式：&unnicodeag;" v-model="menuOptions.form.uniURL" clearable></el-input>
+              <el-input
+                placeholder="格式：&unnicodeag;"
+                v-model="menuOptions.form.unicodURL"
+                clearable
+              ></el-input>
             </el-form-item>
           </template>
-          <el-form-item label="是否启用">
+          <el-form-item label="是否启用" prop="menuStatus">
             <el-switch v-model="menuOptions.form.menuStatus" :active-value="1" :inactive-value="0"></el-switch>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="createClickBtn('form')">创建</el-button>
+            <el-button type="primary" @click="createClickBtn('form')">{{menuOptions.successBtn}}</el-button>
             <el-button type="warning" @click="cancelClickBtn">取消</el-button>
             <el-button type="warning" @click="resetClickBtn('form')">重置</el-button>
           </el-form-item>
@@ -75,14 +80,18 @@ export default {
           menuName: null,
           menuURL: null,
           iconType: 1,
+          iconURL: null,
+          unicodURL: null,
           menuStatus: 1,
         },
+        successBtn: '创建',
         rules: {
           pId: [this.$rul.requiredSelect()],
           menuName: [this.$rul.requiredSelect()],
           menuURL: [this.$rul.requiredSelect()],
         },
       },
+      formCopy: null, //表单备份
       menuDropDownList: [
         {
           id: '0',
@@ -114,6 +123,9 @@ export default {
       if (!id) return
       let { result } = await this.$api.getMenuDetail({ id })
       console.log(result, 'result-----------')
+      this.menuOptions.form = result[0]
+      this.menuOptions.successBtn = '修改'
+      this.formCopy = JSON.stringify(result[0])
     },
     //点击选中后重新校验规则
     handlerSelect(node, instanceId) {
@@ -137,14 +149,25 @@ export default {
     },
     //重置表单
     resetClickBtn(formName) {
-      this.$refs[formName].resetFields()
+      if (this.$route.params.id) {
+        this.menuOptions.form = JSON.parse(this.formCopy)
+      } else {
+        this.$nextTick(() => {
+          this.$refs[formName].resetFields()
+        })
+      }
     },
     //确认创建
     createClickBtn(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
+          let result
+          if (this.$route.params.id) {
+            result = await this.$api.saveMenu(this.menuOptions.form)
+          } else {
+            result = await this.$api.saveMenu(this.menuOptions.form)
+          }
           try {
-            let result = await this.$api.saveMenu(this.menuOptions.form)
             if (result.err_code == 200) {
               console.log(result, 'tian jia cheng gong !')
             }
@@ -166,10 +189,4 @@ export default {
 </script>
 
 <style scoped>
-/deep/ .vue-treeselect__value-container .vue-treeselect__placeholder {
-  line-height: 40px !important ;
-}
-/deep/ .vue-treeselect__single-value {
-  line-height: 40px !important;
-}
 </style>
