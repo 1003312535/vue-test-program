@@ -11,13 +11,18 @@
     },
     "dependencies": {
         "@riophae/vue-treeselect": "^0.4.0",
+        "axios": "^0.21.1",
         "element-ui": "^2.14.1",
         "file-saver": "^2.0.5",
+        "less": "^3.9.0",
+        "less-loader": "^5.0.0",
         "mavon-editor": "^2.9.1",
         "swiper": "^6.4.5",
         "vue": "^2.5.2",
         "vue-awesome-swiper": "^4.1.1",
         "vue-router": "^3.4.9",
+        "vuex": "^3.6.2",
+        "vuex-persistedstate": "^4.0.0-beta.3",
         "xlsx": "^0.16.9"
     },
     "devDependencies": {

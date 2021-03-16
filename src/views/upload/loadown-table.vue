@@ -632,10 +632,10 @@
 </template>
 
 <script>
-import Othee from '../../components/othee/othee.vue'
+import Othee from 'components/othee/othee.vue'
 import otheeRow from 'components/othee/otheeRow'
-import Cell from '../../components/othee/cell.vue'
-import otheeRowTitle from '../../components/othee/otheeRowTitle.vue'
+import Cell from 'components/othee/cell.vue'
+import otheeRowTitle from 'components/othee/otheeRowTitle.vue'
 
 export default {
   components: { Othee, otheeRow, Cell, otheeRowTitle },
