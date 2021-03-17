@@ -63,10 +63,17 @@ const routes = [
         path: '/System',
         name: '系统管理',
         component: layout,
-        children: [
-            { path: 'Menu', name: '菜单管理', component: listMenu, },
-            { path: 'Menu/addMenu', name: '新增菜单', component: addMenu },
-            { path: 'Menu/editMenu/:id', name: '编辑菜单', component: addMenu }
+        children: [{
+                path: 'Menu',
+                name: '菜单管理',
+                component: layout,
+                children: [
+                    { path: '', component: listMenu },
+                    { path: 'addMenu', name: '新增菜单', component: addMenu },
+                    { path: 'editMenu/:id', name: '编辑菜单', component: addMenu }
+                ]
+            },
+
         ]
     },
     { path: '/Upload', name: '上传管理', component: layout, children: [{ path: 'importTable', name: '导入出表', component: importTable }, { path: 'exportTable', name: '导出表', component: exportTable }, { path: 'loadownTable', name: '下载el-table表格', component: loadownTable }, { path: 'inputTable', name: '可编辑表格', component: inputTable }, { path: 'binTable', name: '合并的表格', component: binTable }] },
@@ -81,7 +88,7 @@ const routes = [
             { path: 'inputValidation', name: '保留整数和小数点后几位', component: inputValidation },
         ]
     },
-    { path: '/packageComponent', name: '自己分组的组件', component: layout, children: [{ path: 'AutoPlaceholder', name: 'input联动效果', component: AutoPlaceholder }, ] },
+    { path: '/packageComponent', name: '自己分装的组件', component: layout, children: [{ path: 'AutoPlaceholder', name: 'input联动效果', component: AutoPlaceholder }, ] },
     // { path: 'FunComponent', name: '自定义插件', component: FunComponent },
 
     {

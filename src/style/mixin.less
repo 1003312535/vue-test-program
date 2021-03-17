@@ -1,0 +1,89 @@
+/* 左侧边导航 */
+
+.el-aside {
+  width: auto !important;
+  max-width: 200px;
+  transition: all 1s;
+  padding-bottom: 60px;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+
+/* 清除滚动条 */
+
+.el-aside::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* 子项的样式 */
+
+.el-menu-item {
+  box-sizing: border-box;
+  background-color: #f0f2f5;
+  margin: 0px 0 10px 15px;
+  border-radius: 30px 0 0 30px;
+  /* padding-left: 20px !important; */
+  margin-left: 40px;
+  padding-right: 0 !important;
+}
+
+.el-menu-item,
+.el-submenu__title {
+  /*设置多级导航样式*/
+  height: 40px !important;
+  line-height: 40px !important;
+}
+
+
+/*设置一级导航样式 首页也定义了这个类名*/
+
+.el-submenu__title {
+  padding: 0 0 0 8px !important;
+  margin: 12px;
+  border-radius: 30px;
+  background-color: #f3f6f5;
+}
+
+
+/* 设置一级导航的右边图片的样式*/
+
+.el-submenu__icon-arrow {
+  display: none;
+}
+
+.el-tooltip {
+  padding: 0 8px !important;
+  display: none;
+}
+
+
+/* 导航栏折叠起来子项的样式 */
+
+.el-menu--vertical .el-menu .el-menu-item {
+  padding: 0 0 0 10px !important;
+  margin: 6px;
+  border-radius: 30px;
+  background-color: #f3f6f5;
+}
+
+
+/* 折叠按钮图标的样式 */
+
+.Collapse {
+  position: fixed;
+  transition: all 1s;
+  bottom: 60px;
+  left: 0;
+  background-color: #fff;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  box-shadow: 0px -2px 1px 0px #aaaaaa;
+}
+
+.el-submenu.is-opened .el-menu .el-menu-item:last-child {
+  margin-bottom: 0;
+}

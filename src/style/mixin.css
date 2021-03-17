@@ -1,8 +1,10 @@
 /* 左侧边导航 */
 
-.el-aside {
+.Menu.el-aside {
+    position: relative;
     width: auto !important;
-    max-width: 200px;
+    /* min-width: 240px; */
+    /* max-width: 200px; */
     transition: all 1s;
     padding-bottom: 60px;
     overflow-x: hidden;
@@ -11,27 +13,44 @@
 }
 
 
+/* 折叠按钮图标的样式 */
+
+.Menu .Collapse {
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+    background-color: #eee;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    box-shadow: 0px -2px 1px 0px #aaaaaa;
+}
+
+
 /* 清除滚动条 */
 
-.el-aside::-webkit-scrollbar {
+.Menu.el-aside::-webkit-scrollbar {
     display: none;
 }
 
 
 /* 子项的样式 */
 
-.el-menu-item {
+.Menu .el-menu-item {
+    width: auto !important;
     box-sizing: border-box;
     background-color: #f0f2f5;
-    margin: 0px 0 10px 15px;
-    border-radius: 30px 0 0 30px;
-    /* padding-left: 20px !important; */
-    margin-left: 40px;
+    margin: 0px 10px 10px 30px;
+    border-radius: 30px;
     padding-right: 0 !important;
 }
 
-.el-menu-item,
-.el-submenu__title {
+.Menu .el-menu-item span {
+    padding-right: 10px;
+}
+
+.Menu .el-menu-item,
+.Menu .el-submenu__title {
     /*设置多级导航样式*/
     height: 40px !important;
     line-height: 40px !important;
@@ -40,21 +59,40 @@
 
 /*设置一级导航样式 首页也定义了这个类名*/
 
-.el-submenu__title {
-    padding: 0 0 0 8px !important;
+.Menu .el-submenu__title {
+    padding: 0 8px 0 8px !important;
     margin: 12px;
     border-radius: 30px;
     background-color: #f3f6f5;
 }
 
 
-/* 设置一级导航的右边图片的样式*/
+/* 一级导航标题 */
 
-.el-submenu__icon-arrow {
-    display: none;
+.Menu .el-submenu__title span {
+    padding-right: 20px;
+    vertical-align: unset !important;
 }
 
-.el-tooltip {
+
+/* 一级导航图标 */
+
+.Menu .el-submenu__title i:first-of-type {
+    width: 24px !important;
+    display: inline-block;
+}
+
+
+/* 设置一级导航的右边图片的样式*/
+
+.Menu .el-submenu__icon-arrow {
+    /* display: none; */
+    right: 10px;
+    margin: 0;
+    margin-top: -6px;
+}
+
+.Menu .el-tooltip {
     padding: 0 8px !important;
     display: none;
 }
@@ -62,28 +100,20 @@
 
 /* 导航栏折叠起来子项的样式 */
 
-.el-menu--vertical .el-menu .el-menu-item {
+.Menu .el-menu--vertical .el-menu .el-menu-item {
     padding: 0 0 0 10px !important;
     margin: 6px;
     border-radius: 30px;
     background-color: #f3f6f5;
 }
 
-
-/* 折叠按钮图标的样式 */
-
-.Collapse {
-    position: fixed;
-    transition: all 1s;
-    bottom: 60px;
-    left: 0;
-    background-color: #fff;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    box-shadow: 0px -2px 1px 0px #aaaaaa;
+.Menu .el-submenu.is-opened .el-menu .el-menu-item:last-child {
+    margin-bottom: 0;
 }
 
-.el-submenu.is-opened .el-menu .el-menu-item:last-child {
-    margin-bottom: 0;
+
+/* el-scrollBar样式 */
+
+.el-scrollbar__wrap {
+    overflow-x: hidden;
 }

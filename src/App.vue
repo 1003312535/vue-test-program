@@ -24,19 +24,19 @@
 </template>
 
 <script>
-import defaultAside from "components/common/aside/aside";//左边菜单栏
-import defaultBreadcrumb from "components/common/breadcrumb/breadcrumb"; //右边 面包屑
+import defaultAside from 'components/common/aside/aside' //左边菜单栏
+import defaultBreadcrumb from 'components/common/breadcrumb/breadcrumb' //右边 面包屑
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     defaultAside,
     defaultBreadcrumb,
   },
-};
+}
 </script>
 
-<style>
+<style >
 * {
   margin: 0;
   padding: 0;

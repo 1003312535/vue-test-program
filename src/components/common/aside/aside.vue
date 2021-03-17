@@ -1,128 +1,43 @@
 <template>
   <el-aside class="Menu">
-    <el-menu
-      class="el-menu-vertical-demo"
-      active-text-color="red"
-      :collapse="isCollapse"
-      :router="true"
-      :unique-opened="true"
-      @select="selectEvent"
-      :default-active="currentIndexPath"
-    >
-      <!-- 首页 -->
-      <el-menu-item index="/Index" class="el-submenu__title">
-        <i class="el-icon-document"></i>
-        <span slot="title">首页</span>
-      </el-menu-item>
-      <!-- 工具管理 -->
-      <el-submenu index="/tool">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>工具管理</span>
-        </template>
-        <el-menu-item index="/tool/markDown">
-          <template slot="title">
-            <span>markDown</span>
+    <el-scrollbar style="height:100%;width:100%">
+      <el-menu
+        class="el-menu-vertical-demo"
+        active-text-color="red"
+        :collapse="isCollapse"
+        :router="true"
+        :unique-opened="true"
+        @select="selectEvent"
+        :default-active="currentIndexPath"
+      >
+        <template v-for="(item) in tableData">
+          <template v-if="item.menuURL == '/index'">
+            <el-menu-item :index="item.menuURL" class="el-submenu__title">
+              <i class="el-icon-document"></i>
+              <span slot="title">{{item.menuName}}</span>
+            </el-menu-item>
           </template>
-        </el-menu-item>
-        <el-menu-item index="/tool/swiper">
-          <template slot="title">
-            <span>swiper</span>
+          <template v-else>
+            <el-submenu :index="item.menuURL">
+              <template slot="title">
+                <i :class="item.iconURL"></i>
+                <span>{{item.menuName}}</span>
+              </template>
+              <template v-if="item.children&&item.children.length>0">
+                <el-menu-item
+                  :index="subItem.menuURL"
+                  v-for="(subItem,subIndex) in item.children"
+                  :key="subItem.id"
+                >
+                  <span slot="title">{{subItem.menuName}}</span>
+                </el-menu-item>
+              </template>
+            </el-submenu>
           </template>
-        </el-menu-item>
-        <el-menu-item index="/tool/ImageCompression">
-          <template slot="title">
-            <span>ImageCompression</span>
-          </template>
-        </el-menu-item>
-        <el-menu-item index="/tool/Throttle">
-          <span slot="title">指令：防抖(debounce)和节流(throttle)测试</span>
-        </el-menu-item>
-      </el-submenu>
-      <!-- 系统管理 -->
-      <el-submenu index="/System">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>系统管理</span>
         </template>
-        <el-menu-item index="/System/Menu">
-          <template slot="title">
-            <span>菜单管理</span>
-          </template>
-        </el-menu-item>
-      </el-submenu>
-      <!-- 树结构 -->
-      <el-submenu index="/tree">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>el-tree界面</span>
-        </template>
-        <el-menu-item index="/tree/successTree">
-          <span slot="title">某级别复选框显隐</span>
-        </el-menu-item>
-        <el-menu-item index="/tree/lineTree">
-          <span slot="title">lineTree</span>
-        </el-menu-item>
-        <el-menu-item index="/tree/TreeSelect">
-          <span slot="title">vue-treeSelect校验和高度设置</span>
-        </el-menu-item>
-      </el-submenu>
-      <!-- 上传文件管理 -->
-      <el-submenu index="/upload">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>上传文件管理</span>
-        </template>
-        <el-menu-item index="/upload/binTable">
-          <span slot="title">合并的表格</span>
-        </el-menu-item>
-        <el-menu-item index="/upload/importTable">
-          <span slot="title">表格导入</span>
-        </el-menu-item>
-        <el-menu-item index="/upload/exportTable">
-          <span slot="title">表格导出</span>
-        </el-menu-item>
-        <el-menu-item index="/upload/loadownTable">
-          <span slot="title">input loadown-table测试</span>
-        </el-menu-item>
-        <el-menu-item index="/upload/inputTable">
-          <span slot="title">可编辑的表格</span>
-        </el-menu-item>
-      </el-submenu>
-      <!-- 函数式插件 -->
-      <el-submenu index="/FunComponent">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>函数式插件</span>
-        </template>
-        <el-menu-item index="/FunComponent/allFun">
-          <span slot="title">按钮调用组件</span>
-        </el-menu-item>
-      </el-submenu>
-
-      <el-submenu index="/packageComponent">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>自己封装的组件</span>
-        </template>
-        <el-menu-item index="/packageComponent/AutoPlaceholder">
-          <span slot="title">autoplaceholder下拉框表格</span>
-        </el-menu-item>
-      </el-submenu>
-      <el-submenu index="/formIssue">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>Form表单问题</span>
-        </template>
-        <el-menu-item index="/formIssue/Form">
-          <span slot="title">form表单嵌套校验</span>
-        </el-menu-item>
-        <el-menu-item index="/formIssue/inputValidation">
-          <span slot="title">input输入校验</span>
-        </el-menu-item>
-      </el-submenu>
-    </el-menu>
-    <div class="Collapse" @click="changeState" :style="{ width: isCollapse ? '64px' : '200px' }">|||</div>
+      </el-menu>
+    </el-scrollbar>
+    <div class="Collapse" @click="changeState" :style="{ width: isCollapse ? '64px' : '100%' }">|||</div>
   </el-aside>
 </template>
 
@@ -133,8 +48,26 @@ export default {
   computed: {
     ...mapState(['currentIndexPath', 'isCollapse']),
   },
+  data() {
+    return {
+      tableData: [],
+    }
+  },
+  async mounted() {
+    try {
+      let { result } = await this.getMenuTreeList()
+      this.tableData = result
+      console.log(this.tableData, 'tableData-------')
+    } catch (err) {
+      throw err
+    }
+  },
   methods: {
     ...mapMutations([CHANGINDEXPATH, CHANGASIDENAVCOLLAPSESTATUS]),
+    //获取导航Tree列表
+    getMenuTreeList() {
+      return this.$api.getMenuTreeList()
+    },
     changeState() {
       //导航栏的折叠和收缩
       this[CHANGASIDENAVCOLLAPSESTATUS](!this.isCollapse)

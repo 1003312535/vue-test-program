@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="listRole">
     <el-button type="success" @click="addMenu">添加菜单</el-button>
     <el-table :data="tableData" row-key="id" :indent="20" :tree-props="{ children: 'children'}">
       <el-table-column prop="menuName" label="菜单名称"></el-table-column>

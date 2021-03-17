@@ -1,28 +1,28 @@
 <template>
-    <!-- 面包屑 -->
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item
-        v-for="(item, index) in routeList"
-        :key="index"
-        :to="index != 0 ? { path: item.path } : {}"
-        >{{ item.name }}</el-breadcrumb-item
-      >
-    </el-breadcrumb>
-  
+  <!-- 面包屑 -->
+  <el-breadcrumb separator="/">
+    <el-breadcrumb-item
+      v-for="(item, index) in routeList"
+      :key="index"
+      :to="index != 0 ? { path: item.path } : {}"
+    >{{ item.name }}</el-breadcrumb-item>
+  </el-breadcrumb>
 </template>
 
 <script>
 export default {
   computed: {
     routeList() {
-      let routeList = this.$route.matched || []; //判断是否 存在路由匹配列表
+      let routeList = this.$route.matched || [] //判断是否 存在路由匹配列表
+      console.log(this.$router, 'this.$route-----')
+      console.log(routeList, 'routeList---面包屑')
       return routeList.filter((item) => {
         //过滤调 子级路径为 / 的 path 子项
-        return item.name;
-      });
+        return item.name
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped>
